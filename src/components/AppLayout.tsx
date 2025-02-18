@@ -4,7 +4,7 @@ import ThemeToggle from './ThemeToggle';
 
 export default function AppLayout() {
   return (
-    <div>
+    <div className="bg-white dark:bg-gray-950 text-gray-950 dark:text-gray-50">
       <ThemeToggle />
       <Outlet />
     </div>
