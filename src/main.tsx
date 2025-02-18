@@ -21,7 +21,7 @@ createRoot(document.getElementById('root')!).render(
           <Routes>
             <Route element={<AppLayout />}>
               <Route index element={<Posts />} />
-              <Route path="post/:id" element={<Post />} />
+              <Route path="article/:postId" element={<Post />} />
             </Route>
           </Routes>
         </BrowserRouter>
