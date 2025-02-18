@@ -7,15 +7,13 @@ export function BlogCard({ post }: { post: Post }) {
   return (
     <Link to={`/article/${post.id}`}>
       <Card className="h-full flex flex-col">
-        <div className="w-full">
-          <AspectRatio ratio={16 / 9}>
-            <img
-              src={`https://picsum.photos/seed/${post.id}/400/225`}
-              alt={post.title}
-              className="rounded-t-lg object-cover"
-            />
-          </AspectRatio>
-        </div>
+        <AspectRatio ratio={16 / 9}>
+          <img
+            src={`https://picsum.photos/seed/${post.id}/400/225`}
+            alt={post.title}
+            className="rounded-t-lg object-cover"
+          />
+        </AspectRatio>
         <CardHeader>
           <CardTitle>{post.title}</CardTitle>
         </CardHeader>

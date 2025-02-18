@@ -1,5 +1,60 @@
-import React from 'react';
+import { Link } from 'react-router';
+import { useParams } from 'react-router';
+import { useQuery } from '@tanstack/react-query';
+
+import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { Button } from '@/components/ui/button';
+import { fetchSinglePost } from '@/lib/posts';
 
 export default function Post() {
-  return <div>Post</div>;
+  const { postId } = useParams();
+
+  const {
+    data: post,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['post', postId],
+    queryFn: () => fetchSinglePost(Number.parseInt(postId as string)),
+  });
+
+  if (isError || !post) {
+    return <div>Error loading post</div>;
+  }
+
+  return (
+    <main className="container mx-auto px-4 py-8 max-w-3xl">
+      <Button asChild variant="outline" className="mb-8">
+        <Link to="/">← Back to all posts</Link>
+      </Button>
+      <article>
+        <AspectRatio ratio={16 / 9} className="mb-8">
+          <img
+            src={`https://picsum.photos/seed/${post.id}/800/450`}
+            alt={post.title}
+            className="rounded-lg object-cover"
+          />
+        </AspectRatio>
+        <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+        <div className="prose prose-lg dark:prose-invert">
+          <p>{post.body}</p>
+          {/* Dummy paragraphs */}
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+            euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, vitae
+            aliquam nisl nunc vitae nisl.
+          </p>
+          <p>
+            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            nisi ut aliquip ex ea commodo consequat.
+          </p>
+          <p>
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+            officia deserunt mollit anim id est laborum.
+          </p>
+        </div>
+      </article>
+    </main>
+  );
 }
