@@ -1,3 +1,6 @@
+import { Fragment } from 'react';
+
+import { BlogCard } from '@/components/BlogCard';
 import { fetchPosts } from '@/lib/posts';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
@@ -19,8 +22,21 @@ export default function Posts() {
     },
   });
 
-  if (status === 'pending') return <p>Loading...</p>;
-  if (status === 'error') return <p>Error :(</p>;
+  if (status === 'pending') return <div>Loading...</div>;
+  if (status === 'error') return <div>Error: {(error as Error).message}</div>;
 
-  return <div>Posts</div>;
+  return (
+    <main>
+      <h1>Posts</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {data.pages.map((page, i) => (
+          <Fragment key={i}>
+            {page.map((post) => (
+              <BlogCard post={post} key={post.id} />
+            ))}
+          </Fragment>
+        ))}
+      </div>
+    </main>
+  );
 }
