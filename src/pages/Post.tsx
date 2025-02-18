@@ -5,6 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Button } from '@/components/ui/button';
 import { fetchSinglePost } from '@/lib/posts';
+import PostSkeleton from '@/components/PostSkeleton';
+import Comments from '@/components/Comments';
 
 export default function Post() {
   const { postId } = useParams();
@@ -18,6 +20,10 @@ export default function Post() {
     queryFn: () => fetchSinglePost(Number.parseInt(postId as string)),
   });
 
+  if (isLoading) {
+    return <PostSkeleton />;
+  }
+
   if (isError || !post) {
     return <div>Error loading post</div>;
   }
@@ -28,13 +34,16 @@ export default function Post() {
         <Link to="/">← Back to all posts</Link>
       </Button>
       <article>
-        <AspectRatio ratio={16 / 9} className="mb-8">
-          <img
-            src={`https://picsum.photos/seed/${post.id}/800/450`}
-            alt={post.title}
-            className="rounded-lg object-cover"
-          />
-        </AspectRatio>
+        <div className="mb-8">
+          <AspectRatio ratio={16 / 9}>
+            <img
+              src={`https://picsum.photos/seed/${post.id}/800/450`}
+              alt={post.title}
+              className="rounded-lg object-cover"
+            />
+          </AspectRatio>
+        </div>
+
         <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
         <div className="prose prose-lg dark:prose-invert">
           <p>{post.body}</p>
@@ -55,6 +64,7 @@ export default function Post() {
           </p>
         </div>
       </article>
+      <Comments postId={post.id} />
     </main>
   );
 }

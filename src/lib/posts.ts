@@ -1,10 +1,10 @@
 const MAX_POST_PAGE = 10;
 
-export type Post = {
+export interface Post {
   id: number;
   title: string;
   body: string;
-};
+}
 
 export const fetchPosts = async ({ pageParam }: { pageParam: number }) => {
   const response = await fetch(
