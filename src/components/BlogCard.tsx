@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Post } from '@/lib/posts';
 import { AspectRatio } from './ui/aspect-ratio';
 
-export function BlogCard({ post }: { post: Post }) {
+export default function BlogCard({ post }: { post: Post }) {
   return (
     <Link to={`/article/${post.id}`}>
       <Card className="h-full flex flex-col">

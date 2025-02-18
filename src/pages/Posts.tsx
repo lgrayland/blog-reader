@@ -1,7 +1,7 @@
 import { Fragment, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import { BlogCard } from '@/components/BlogCard';
+import BlogCard from '@/components/BlogCard';
 import { fetchPosts } from '@/lib/posts';
 import { useInfiniteQuery } from '@tanstack/react-query';
 

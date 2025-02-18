@@ -1,5 +1,6 @@
 import { Comment, fetchComments } from '@/lib/comments';
 import { useQuery } from '@tanstack/react-query';
+import CommentsSkeleton from './CommentsSkeleton';
 
 export default function Comments({ postId }: { postId: number }) {
   const {
@@ -10,6 +11,10 @@ export default function Comments({ postId }: { postId: number }) {
     queryKey: ['comments', postId],
     queryFn: () => fetchComments(postId),
   });
+
+  if (isLoading) {
+    return <CommentsSkeleton />;
+  }
 
   if (isError) {
     return <div>Error loading comments</div>;
