@@ -30,7 +30,7 @@ export default function Comments({ postId }: { postId: number }) {
           {comments.map((comment: Comment) => (
             <li
               key={comment.id}
-              className="bg-white dark:bg-gray-900 p-4 rounded-lg"
+              className="bg-white text-gray-950 rounded-xl border border-gray-200 shadow-sm dark:bg-gray-950 dark:text-gray-50 dark:border-gray-800 p-4"
             >
               <h3 className="font-semibold">{comment.name}</h3>
               <p className="text-sm text-muted-foreground mb-2">

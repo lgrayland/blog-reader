@@ -5,7 +5,7 @@ import BlogCard from '@/components/BlogCard';
 import { fetchPosts } from '@/lib/posts';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-export default function Posts() {
+export default function BlogPosts() {
   const { ref, inView } = useInView();
   const {
     status,
@@ -33,8 +33,7 @@ export default function Posts() {
   if (status === 'error') return <div>Error: {(error as Error).message}</div>;
 
   return (
-    <main className="container mx-auto px-4 py-8 max-w-7xl">
-      <h1>Posts</h1>
+    <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {data.pages.map((page, i) => (
           <Fragment key={i}>
@@ -47,6 +46,6 @@ export default function Posts() {
       <div ref={ref} className="h-10 flex items-center justify-center mt-4">
         {isFetchingNextPage && <div>Loading more...</div>}
       </div>
-    </main>
+    </>
   );
 }

@@ -7,9 +7,9 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './index.css';
 
 import AppLayout from '@/components/AppLayout.tsx';
-import Posts from '@/pages/Posts';
-import Post from '@/pages/Post';
 import { ThemeProvider } from './context/ThemeContext/provider';
+import Post from '@/pages/Post';
+import Home from './pages/Home';
 
 const queryClient = new QueryClient();
 
@@ -20,7 +20,7 @@ createRoot(document.getElementById('root')!).render(
         <BrowserRouter>
           <Routes>
             <Route element={<AppLayout />}>
-              <Route index element={<Posts />} />
+              <Route index element={<Home />} />
               <Route path="article/:postId" element={<Post />} />
             </Route>
           </Routes>

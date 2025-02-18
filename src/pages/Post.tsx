@@ -29,7 +29,7 @@ export default function Post() {
   }
 
   return (
-    <main className="container mx-auto px-4 py-8 max-w-3xl">
+    <div className="container mx-auto px-4 py-8 max-w-3xl">
       <Button asChild variant="outline" className="mb-8">
         <Link to="/">← Back to all posts</Link>
       </Button>
@@ -65,6 +65,6 @@ export default function Post() {
         </div>
       </article>
       <Comments postId={post.id} />
-    </main>
+    </div>
   );
 }
