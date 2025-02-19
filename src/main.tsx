@@ -7,9 +7,11 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './index.css';
 
 import AppLayout from '@/components/AppLayout.tsx';
-import { ThemeProvider } from './context/ThemeContext/provider';
-import Post from '@/pages/Post';
-import Home from './pages/Home';
+import { ThemeProvider } from '@/context/ThemeContext/provider';
+import SinglePost from '@/pages/Post';
+import Home from '@/pages/Home';
+import NotFound from '@/pages/NotFound';
+import AuthorPage from '@/pages/Author';
 
 const queryClient = new QueryClient();
 
@@ -21,7 +23,9 @@ createRoot(document.getElementById('root')!).render(
           <Routes>
             <Route element={<AppLayout />}>
               <Route index element={<Home />} />
-              <Route path="article/:postId" element={<Post />} />
+              <Route path="article/:postId" element={<SinglePost />} />
+              <Route path="author/:userId" element={<AuthorPage />} />
+              <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
         </BrowserRouter>

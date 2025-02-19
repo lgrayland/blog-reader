@@ -4,18 +4,19 @@ import { useQuery } from '@tanstack/react-query';
 
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Button } from '@/components/ui/button';
-import { fetchSinglePost } from '@/lib/posts';
+import { fetchSinglePost, Post } from '@/lib/posts';
 import PostSkeleton from '@/components/PostSkeleton';
 import Comments from '@/components/Comments';
+import { User } from '@/lib/users';
 
-export default function Post() {
-  const { postId } = useParams();
+export default function SinglePost() {
+  const { postId } = useParams<{ postId: string }>();
 
   const {
     data: post,
     isLoading,
     isError,
-  } = useQuery({
+  } = useQuery<Post & { author: User }>({
     queryKey: ['post', postId],
     queryFn: () => fetchSinglePost(Number.parseInt(postId as string)),
   });
@@ -45,6 +46,12 @@ export default function Post() {
         </div>
 
         <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+        <p className=" mb-6">
+          Author:{' '}
+          <Link to={`/author/${post.userId}`} className="hover:underline ">
+            {post.author.name}
+          </Link>
+        </p>
         <div className="prose prose-lg dark:prose-invert">
           <p>{post.body}</p>
           {/* Dummy paragraphs */}
