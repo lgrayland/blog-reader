@@ -1,6 +1,6 @@
 import AuthorSkeleton from '@/components/AuthorSkeleton';
 import BlogCard from '@/components/BlogCard';
-import { fetchAuthorPosts, Post } from '@/lib/posts';
+import { useAuthorPosts } from '@/hooks';
 import { fetchUser, User } from '@/lib/users';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router';
@@ -12,10 +12,7 @@ export default function AuthorPage() {
     data: posts,
     isLoading: postsLoading,
     isError: postsError,
-  } = useQuery<Post[]>({
-    queryKey: ['authorPosts', userId],
-    queryFn: () => fetchAuthorPosts(Number.parseInt(userId as string)),
-  });
+  } = useAuthorPosts(Number.parseInt(userId as string));
 
   const {
     data: author,

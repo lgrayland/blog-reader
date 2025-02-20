@@ -1,6 +1,15 @@
 import { http, HttpResponse } from 'msw';
 
 export const handlers = [
+  http.get('https://jsonplaceholder.typicode.com/users/:id', ({ params }) => {
+    const { id } = params;
+    return HttpResponse.json({
+      id: Number(id),
+      name: `Test User ${id}`,
+      username: `testuser${id}`,
+      email: `testuser${id}@example.com`,
+    });
+  }),
   http.get('https://jsonplaceholder.typicode.com/posts', async () => {
     return HttpResponse.json([
       {
@@ -34,5 +43,14 @@ export const handlers = [
         body: 'This is another test comment',
       },
     ]);
+  }),
+  http.get('https://jsonplaceholder.typicode.com/posts/:id', ({ params }) => {
+    const { id } = params;
+    return HttpResponse.json({
+      userId: 1,
+      id: Number(id),
+      title: `Test Post ${id}`,
+      body: `This is the body of test post ${id}`,
+    });
   }),
 ];
