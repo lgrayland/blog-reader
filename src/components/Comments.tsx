@@ -1,16 +1,9 @@
-import { Comment, fetchComments } from '@/lib/comments';
-import { useQuery } from '@tanstack/react-query';
+import { Comment } from '@/lib/comments';
 import CommentsSkeleton from './CommentsSkeleton';
+import { useComments } from '@/hooks';
 
 export default function Comments({ postId }: { postId: number }) {
-  const {
-    data: comments,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ['comments', postId],
-    queryFn: () => fetchComments(postId),
-  });
+  const { data: comments, isLoading, isError } = useComments(postId);
 
   if (isLoading) {
     return <CommentsSkeleton />;

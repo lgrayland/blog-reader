@@ -2,7 +2,7 @@ import { Skeleton } from './ui/skeleton';
 
 export default function CommentsSkeleton() {
   return (
-    <div className="mt-12">
+    <div className="mt-12" data-testid="comments-skeleton">
       <Skeleton className="w-40 h-8 mb-4" />
       <ul className="space-y-4">
         {[1, 2, 3].map((i) => (
