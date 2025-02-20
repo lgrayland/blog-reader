@@ -7,21 +7,15 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 export default function BlogPosts() {
   const { ref, inView } = useInView();
-  const {
-    status,
-    data,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useInfiniteQuery({
-    queryKey: ['posts'],
-    queryFn: ({ pageParam }) => fetchPosts({ pageParam }),
-    initialPageParam: 0,
-    getNextPageParam: (lastPage, allPages) => {
-      return lastPage.length ? allPages.length + 1 : undefined;
-    },
-  });
+  const { status, data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ['posts'],
+      queryFn: ({ pageParam }) => fetchPosts({ pageParam }),
+      initialPageParam: 0,
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.length ? allPages.length + 1 : undefined;
+      },
+    });
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -30,7 +24,7 @@ export default function BlogPosts() {
   }, [inView, fetchNextPage, hasNextPage]);
 
   if (status === 'pending') return <div>Loading...</div>;
-  if (status === 'error') return <div>Error: {(error as Error).message}</div>;
+  if (status === 'error') return <div>Error: Failed to fetch</div>;
 
   return (
     <>

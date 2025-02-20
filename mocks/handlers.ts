@@ -10,22 +10,41 @@ export const handlers = [
       email: `testuser${id}@example.com`,
     });
   }),
-  http.get('https://jsonplaceholder.typicode.com/posts', async () => {
-    return HttpResponse.json([
-      {
-        userId: 1,
-        id: 1,
-        title: 'Test Post 1',
-        body: 'This is the body of test post 1',
-      },
-      {
-        userId: 1,
-        id: 2,
-        title: 'Test Post 2',
-        body: 'This is the body of test post 2',
-      },
-    ]);
-  }),
+  http.get(
+    'https://jsonplaceholder.typicode.com/posts',
+    async ({ request }) => {
+      const url = new URL(request.url);
+
+      const page = url.searchParams.get('_page');
+      const limit = url.searchParams.get('_limit');
+      if (!page || !limit) {
+        return HttpResponse.json([
+          {
+            userId: 1,
+            id: 1,
+            title: 'Test Post 1',
+            body: 'This is the body of test post 1',
+          },
+          {
+            userId: 1,
+            id: 2,
+            title: 'Test Post 2',
+            body: 'This is the body of test post 2',
+          },
+        ]);
+      }
+      return HttpResponse.json(
+        Array.from({ length: Number(limit) }, (_, i) => ({
+          userId: 1,
+          id: Number(page) * Number(limit) + i + 1,
+          title: `Test Post ${Number(page) * Number(limit) + i + 1}`,
+          body: `This is the body of test post ${
+            Number(page) * Number(limit) + i + 1
+          }`,
+        }))
+      );
+    }
+  ),
   http.get('https://jsonplaceholder.typicode.com/comments', async () => {
     return HttpResponse.json([
       {

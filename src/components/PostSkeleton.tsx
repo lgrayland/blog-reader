@@ -4,7 +4,10 @@ import { Skeleton } from './ui/skeleton';
 
 export default function PostSkeleton() {
   return (
-    <main className="container mx-auto px-4 py-8 max-w-3xl">
+    <main
+      className="container mx-auto px-4 py-8 max-w-3xl"
+      data-testid="post-skeleton"
+    >
       <Button asChild variant="outline" className="mb-8">
         <Link to="/">← Back to all posts</Link>
       </Button>

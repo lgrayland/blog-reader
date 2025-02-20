@@ -1,11 +1,14 @@
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Post } from '@/lib/posts';
 import { AspectRatio } from './ui/aspect-ratio';
 import { useQuery } from '@tanstack/react-query';
 import { fetchUser, User } from '@/lib/users';
+import { Button } from './ui/button';
 
 export default function BlogCard({ post }: { post: Post }) {
+  const navigate = useNavigate();
+
   const { data: author } = useQuery<User>({
     queryKey: ['user', post.userId],
     queryFn: () => fetchUser(post.userId),
@@ -28,9 +31,12 @@ export default function BlogCard({ post }: { post: Post }) {
           <p className="text-sm mb-2 line-clamp-2">{post.body}</p>
           <p className="text-xs text-gray-400 mt-auto">
             Author:{' '}
-            <Link to={`/author/${post.userId}`} className="hover:underline">
+            <Button
+              onClick={() => navigate(`/author/${post.userId}`)}
+              variant="link"
+            >
               {author ? author.name : `User ${post.userId}`}
-            </Link>
+            </Button>
           </p>
         </CardContent>
       </Card>

@@ -23,7 +23,11 @@ createRoot(document.getElementById('root')!).render(
           <Routes>
             <Route element={<AppLayout />}>
               <Route index element={<Home />} />
-              <Route path="article/:postId" element={<SinglePost />} />
+              <Route
+                path="article/:postId"
+                element={<SinglePost />}
+                errorElement={<NotFound />}
+              />
               <Route path="author/:userId" element={<AuthorPage />} />
               <Route path="*" element={<NotFound />} />
             </Route>
